@@ -1,6 +1,6 @@
-import { fontSize } from "../responsive";
+import { fontSize } from '../responsive/Fontsize';
 
-const size = {
+export const size = {
   xs: fontSize(10),
   s: fontSize(12),
   default: fontSize(14),
@@ -11,6 +11,3 @@ const size = {
   extraxlg: fontSize(42),
   xxxlg: fontSize(48)
 };
-
-
-export { size }

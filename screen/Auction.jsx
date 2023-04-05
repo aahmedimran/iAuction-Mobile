@@ -13,66 +13,91 @@ import {
 import React, {useState} from 'react';
 import {verticalScale, moderateScale} from 'react-native-size-matters';
 import SearchIcon from '../assets/svg/SearchIcon';
+import Layout from '../common/Layout';
+import {Fontfamily} from '../theme/fontFamily';
+import {size} from '../theme/fontstyle';
+import {themeColors} from '../theme/colors';
 const Auction = () => {
   const [isFocused, setIsFocused] = useState('NFT');
   let categary = ['NFT', 'Music', 'Souvenirs'];
-  const cardData = Array(5).fill({
-    Name: 'ahmed',
-    currantPrice: '12',
-    timeLeft: '1d12h',
+  const cardData = Array(10).fill({
+    Name: 'Metatiger',
+    currantPrice: '$25',
+    timeLeft: '1 d 12 h',
   });
 
   return (
-    <View>
-      <View style={styles.headingContainer}>
-        <Text style={styles.headingtexttren}>Trending</Text>
-        <Text style={[styles.headingtexttren, styles.headingtextcol]}>
-          collectibels
-        </Text>
-      </View>
-      <View style={styles.SearchCointiener}>
-        <View>
-          <SearchIcon />
+    <Layout>
+      <View>
+        <View style={styles.headingContainer}>
+          <Text style={styles.headingtexttren}>Trending</Text>
+          <Text style={[styles.headingtexttren, styles.headingtextcol]}>
+            collectibels
+          </Text>
+        </View>
+        <View style={styles.SearchCointiener}>
+          <View>
+            <SearchIcon />
+          </View>
+          <View>
+            <TextInput style={styles.input} placeholder="SEARCH" />
+          </View>
         </View>
         <View>
-          <TextInput style={styles.input} placeholder="SEARCH" />
+          <ScrollView horizontal style={styles.socialArtitems}>
+            {categary?.map((val, index) => {
+              return (
+                <TouchableOpacity key={index} onPress={() => setIsFocused(val)}>
+                  <Text
+                    style={[
+                      styles.categaryText,
+                      isFocused === val ? styles.activeTab : null,
+                    ]}>
+                    {val}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
+          </ScrollView>
+        </View>
+        <View>
+          <FlatList
+            data={cardData}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            renderItem={({item}) => (
+              <View style={styles.cardCaintner}>
+                <Image
+                  style={styles.tinyLogo}
+                  source={require('../assets/images/image.png')}
+                />
+                <Text style={styles.productname}>{item.Name}</Text>
+                <View style={styles.cardDetail}>
+                  <View style={styles.cardDetailChild}>
+                    <Text style={styles.itemTitle}>Currant Price</Text>
+                    <Text style={styles.currantPrice}>{item.currantPrice}</Text>
+                  </View>
+                  <View>
+                    <Text style={styles.itemTitle}>Left Time</Text>
+                    <Text style={styles.timeLeft}>{item.timeLeft}</Text>
+                  </View>
+                </View>
+
+                <View style={styles.cardButton}>
+                  <TouchableOpacity style={[styles.button,styles.buyContainer]}>
+                    <Text style={styles.buy}>Buy</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={[styles.button,styles.saveContainer]}>
+                    <Text style={styles.save}>Save</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            )}
+            // keyExtractor={(item) => item.id.toString()}
+          />
         </View>
       </View>
-      <View>
-        <ScrollView horizontal style={styles.socialArtitems}>
-          {categary?.map((val, index) => {
-            return (
-              <TouchableOpacity key={index} onPress={() => setIsFocused(val)}>
-                <Text
-                  style={[
-                    styles.categaryText,
-                    isFocused === val ? styles.activeTab : null,
-                  ]}>
-                  {val}
-                </Text>
-              </TouchableOpacity>
-            );
-          })}
-        </ScrollView>
-      </View>
-      <View>
-        <FlatList
-          data={cardData}
-          renderItem={({item}) => (
-            <View>
-              <Image
-                style={styles.tinyLogo}
-                source={require('../assets/images/image.png')}
-              />
-              <Text>{item.Name}</Text>
-              <Text>{item.currantPrice}</Text>
-              <Text>{item.timeLeft}</Text>
-            </View>
-          )}
-          // keyExtractor={(item) => item.id.toString()}
-        />
-      </View>
-    </View>
+    </Layout>
   );
 };
 
@@ -86,10 +111,20 @@ const styles = StyleSheet.create({
     paddingLeft: verticalScale(50),
   },
   headingtexttren: {
-    fontFamily: 'av',
-    fontWeight: 'bold',
-    fontSize: 30,
-    color: 'black',
+    // fontFamily: Fontfamily.Neuropolitical,
+    // fontWeight: '400',
+    // fontSize:size.xlg,
+    // color: 'black',
+    // fontFamily: 'Neuropolitical',
+    // fontStyle: 'normal',
+    // fontWeight: 400,
+    // fontSize: 24,
+    // lineHeight: '110',
+    /* or 26px */
+    fontWeight: '500',
+    color: themeColors.garyColor,
+    fontSize: size.xxxlg,
+    fontFamily: 'SpaceGrotesk-SemiBold',
   },
   headingtextcol: {
     color: '#E54637',
@@ -124,7 +159,79 @@ const styles = StyleSheet.create({
     // borderBottomWidth: Platform.OS === 'ios' ? 1 : 1,
   },
   tinyLogo: {
-    width: 50,
-    height: 50,
+    width: 200,
+    height: 150,
+    borderRadius: 20,
+    margin: moderateScale(10),
   },
+  cardCaintner: {
+    margin: 20,
+    // alignItems: 'center',
+    width: 230,
+    height: 300,
+    borderWidth: 2,
+    borderRadius: 20,
+  },
+  productname: {
+    paddingLeft: moderateScale(15),
+    fontWeight: 'bold',
+    color: themeColors.secondaryColor,
+    fontSize: size.lg,
+    fontFamily: Fontfamily.Neuropolitical,
+  },
+  cardDetail: {
+    flexDirection: 'row',
+    gap: 20,
+    paddingLeft: moderateScale(15),
+  },
+  itemTitle: {
+    color: themeColors.garyColor,
+  },
+  cardDetailChild: {
+    borderRightWidth: 1,
+    borderColor: themeColors.garyColor,
+  },
+  itemTitle: {
+    paddingRight: 10,
+    borderColor: themeColors.garyColor,
+    fontSize: size.s,
+  },
+  currantPrice: {
+    color: '#6DC74B',
+    fontWeight: 'bold',
+    fontSize:size.lg,
+  },
+  timeLeft: {
+    color: themeColors.secondaryColor,
+    fontWeight: 'bold',
+    fontSize:size.lg,
+    
+  },
+  cardButton: {
+    flexDirection: 'row',
+    gap: 20,
+    paddingLeft: moderateScale(15),
+  },
+  button: {
+    borderWidth: 1,
+    borderRadius:10,
+     marginTop: 10,
+    paddingHorizontal: 25,
+    paddingVertical:5,
+    borderColor:'#E54637'
+  },
+  buyContainer:{
+    backgroundColor:'#E54637',
+    color: themeColors.primaryColor,
+
+  },
+  save:{
+    color: themeColors.secondaryColor,
+    fontWeight:'500'
+  },
+  buy:{
+    color: themeColors.primaryColor,
+    fontWeight:'500'
+
+  }
 });
