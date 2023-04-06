@@ -17,6 +17,9 @@ import Layout from '../common/Layout';
 import {Fontfamily} from '../theme/fontFamily';
 import {size} from '../theme/fontstyle';
 import {themeColors} from '../theme/colors';
+import Souvenirs from '../components/Souvenirs';
+import Nft from '../components/Nft';
+import Music from '../components/Music';
 const Auction = () => {
   const [isFocused, setIsFocused] = useState('NFT');
   let categary = ['NFT', 'Music', 'Souvenirs'];
@@ -60,7 +63,10 @@ const Auction = () => {
             })}
           </ScrollView>
         </View>
-        <View>
+        {isFocused.includes("NFT") &&(<Nft/>) }
+        {isFocused.includes("Music") &&(<Music/>) }
+        {isFocused.includes("Souvenirs") &&(<Souvenirs/>) }
+        {/* <View>
           <FlatList
             data={cardData}
             horizontal
@@ -95,7 +101,7 @@ const Auction = () => {
             )}
             // keyExtractor={(item) => item.id.toString()}
           />
-        </View>
+        </View> */}
       </View>
     </Layout>
   );
