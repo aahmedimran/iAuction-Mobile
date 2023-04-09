@@ -20,6 +20,10 @@ import {themeColors} from '../theme/colors';
 import Souvenirs from '../components/Souvenirs';
 import Nft from '../components/Nft';
 import Music from '../components/Music';
+import { ethers } from 'ethers';
+// import Crypto from 'react-native-crypto';
+// import RandomBytes from 'react-native-randombytes';
+// import detectProvider from '@metamask/detect-provider';
 const Auction = () => {
   const [isFocused, setIsFocused] = useState('NFT');
   let categary = ['NFT', 'Music', 'Souvenirs'];
@@ -28,7 +32,6 @@ const Auction = () => {
     currantPrice: '$25',
     timeLeft: '1 d 12 h',
   });
-
   return (
     <Layout>
       <View>

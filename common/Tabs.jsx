@@ -60,12 +60,12 @@ const Tabs = () => {
           ),
         }}
          />
-      <Tab.Screen name="Save" component={Save} options={{
+      <Tab.Screen name="Notification" component={Notification} options={{
           tabBarIcon: ({ color, size }) => (
            <Notifictionicon color={color} />
           ),
         }}/>
-      <Tab.Screen name="Notification" component={Notification} options={{
+      <Tab.Screen name="Save" component={Save} options={{
           tabBarIcon: ({ color, size }) => (
            <Favrouite color={color} />
           ),
