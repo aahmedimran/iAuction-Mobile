@@ -346,14 +346,16 @@
 // });
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import Biomatric from '../components/Biomatric'
 
 const Profile = () => {
   return (
     <View>
       <Text>Profile</Text>
+      <Biomatric/>
     </View>
   )
-}
+} 
 
 export default Profile
 
