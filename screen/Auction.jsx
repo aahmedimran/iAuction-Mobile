@@ -9,18 +9,22 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  Pressable,
 } from 'react-native';
-import React, {useState} from 'react';
-import {verticalScale, moderateScale} from 'react-native-size-matters';
+import React, { useState } from 'react';
+import { verticalScale, moderateScale } from 'react-native-size-matters';
 import SearchIcon from '../assets/svg/SearchIcon';
 import Layout from '../common/Layout';
-import {Fontfamily} from '../theme/fontFamily';
-import {size} from '../theme/fontstyle';
-import {themeColors} from '../theme/colors';
+import { Fontfamily } from '../theme/fontFamily';
+import { size } from '../theme/fontstyle';
+import { themeColors } from '../theme/colors';
 import Souvenirs from '../components/Souvenirs';
 import Nft from '../components/Nft';
 import Music from '../components/Music';
 import { ethers } from 'ethers';
+import { Homeicon } from '../assets/svg';
+import Header from '../common/Header';
+import Avataricon from '../assets/svg/Avataricon';
 // import Crypto from 'react-native-crypto';
 // import RandomBytes from 'react-native-randombytes';
 // import detectProvider from '@metamask/detect-provider';
@@ -34,6 +38,13 @@ const Auction = () => {
   });
   return (
     <Layout>
+      <Header
+        title={false}
+        centerTitle='Auction'
+        leftChildren={
+          <Pressable><Avataricon color={'black'} /></Pressable>
+        }
+      />
       <View>
         <View style={styles.headingContainer}>
           <Text style={styles.headingtexttren}>Trending</Text>
@@ -65,46 +76,12 @@ const Auction = () => {
               );
             })}
           </ScrollView>
+          <Homeicon />
         </View>
-        {isFocused.includes("NFT") &&(<Nft/>) }
-        {isFocused.includes("Music") &&(<Music/>) }
-        {isFocused.includes("Souvenirs") &&(<Souvenirs/>) }
-        {/* <View>
-          <FlatList
-            data={cardData}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            renderItem={({item}) => (
-              <View style={styles.cardCaintner}>
-                <Image
-                  style={styles.tinyLogo}
-                  source={require('../assets/images/image.png')}
-                />
-                <Text style={styles.productname}>{item.Name}</Text>
-                <View style={styles.cardDetail}>
-                  <View style={styles.cardDetailChild}>
-                    <Text style={styles.itemTitle}>Currant Price</Text>
-                    <Text style={styles.currantPrice}>{item.currantPrice}</Text>
-                  </View>
-                  <View>
-                    <Text style={styles.itemTitle}>Left Time</Text>
-                    <Text style={styles.timeLeft}>{item.timeLeft}</Text>
-                  </View>
-                </View>
+        {isFocused.includes("NFT") && (<Nft />)}
+        {isFocused.includes("Music") && (<Music />)}
+        {isFocused.includes("Souvenirs") && (<Souvenirs />)}
 
-                <View style={styles.cardButton}>
-                  <TouchableOpacity style={[styles.button,styles.buyContainer]}>
-                    <Text style={styles.buy}>Buy</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={[styles.button,styles.saveContainer]}>
-                    <Text style={styles.save}>Save</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            )}
-            // keyExtractor={(item) => item.id.toString()}
-          />
-        </View> */}
       </View>
     </Layout>
   );
@@ -208,13 +185,13 @@ const styles = StyleSheet.create({
   currantPrice: {
     color: '#6DC74B',
     fontWeight: 'bold',
-    fontSize:size.lg,
+    fontSize: size.lg,
   },
   timeLeft: {
     color: themeColors.secondaryColor,
     fontWeight: 'bold',
-    fontSize:size.lg,
-    
+    fontSize: size.lg,
+
   },
   cardButton: {
     flexDirection: 'row',
@@ -223,24 +200,24 @@ const styles = StyleSheet.create({
   },
   button: {
     borderWidth: 1,
-    borderRadius:10,
-     marginTop: 10,
+    borderRadius: 10,
+    marginTop: 10,
     paddingHorizontal: 25,
-    paddingVertical:5,
-    borderColor:'#E54637'
+    paddingVertical: 5,
+    borderColor: '#E54637'
   },
-  buyContainer:{
-    backgroundColor:'#E54637',
+  buyContainer: {
+    backgroundColor: '#E54637',
     color: themeColors.primaryColor,
 
   },
-  save:{
+  save: {
     color: themeColors.secondaryColor,
-    fontWeight:'500'
+    fontWeight: '500'
   },
-  buy:{
+  buy: {
     color: themeColors.primaryColor,
-    fontWeight:'500'
+    fontWeight: '500'
 
   }
 });
