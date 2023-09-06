@@ -21,14 +21,13 @@ import { themeColors } from '../theme/colors';
 import Souvenirs from '../components/Souvenirs';
 import Nft from '../components/Nft';
 import Music from '../components/Music';
-import { ethers } from 'ethers';
 import { Homeicon } from '../assets/svg';
 import Header from '../common/Header';
-import Avataricon from '../assets/svg/Avataricon';
-// import Crypto from 'react-native-crypto';
-// import RandomBytes from 'react-native-randombytes';
-// import detectProvider from '@metamask/detect-provider';
+import { useNavigation } from '@react-navigation/native';
+import CameraIcon from '../assets/svg/CameraIcon';
+import { SCREENS } from '../typings/screens-enums';
 const Auction = () => {
+  const { navigate } = useNavigation();
   const [isFocused, setIsFocused] = useState('NFT');
   let categary = ['NFT', 'Music', 'Souvenirs'];
   const cardData = Array(10).fill({
@@ -40,26 +39,29 @@ const Auction = () => {
     <Layout>
       <Header
         title={false}
-        centerTitle='Auction'
+        centerTitle='Auctions'
         leftChildren={
-          <Pressable><Avataricon color={'black'} /></Pressable>
+          <Pressable onPress={() => navigate(SCREENS.PROFILE)}>
+            <Image
+              style={{ width: 30, height: 30 }}
+              source={{ uri: 'https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png' }}
+            />
+          </Pressable>
+        }
+        rightChildren={
+
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Pressable onPress={() => navigate(SCREENS.AUCTION)}>
+              <SearchIcon />
+
+            </Pressable>
+            <Pressable onPress={() => navigate(SCREENS.AUCTION)} style={{ paddingLeft: 10 }}>
+              <CameraIcon />
+            </Pressable></View>
+
         }
       />
       <View>
-        <View style={styles.headingContainer}>
-          <Text style={styles.headingtexttren}>Trending</Text>
-          <Text style={[styles.headingtexttren, styles.headingtextcol]}>
-            collectibels
-          </Text>
-        </View>
-        <View style={styles.SearchCointiener}>
-          <View>
-            <SearchIcon />
-          </View>
-          <View>
-            <TextInput style={styles.input} placeholder="SEARCH" />
-          </View>
-        </View>
         <View>
           <ScrollView horizontal style={styles.socialArtitems}>
             {categary?.map((val, index) => {
@@ -76,7 +78,6 @@ const Auction = () => {
               );
             })}
           </ScrollView>
-          <Homeicon />
         </View>
         {isFocused.includes("NFT") && (<Nft />)}
         {isFocused.includes("Music") && (<Music />)}
@@ -126,7 +127,7 @@ const styles = StyleSheet.create({
   },
   categaryContainer: {},
   socialArtitems: {
-    marginTop: moderateScale(20),
+    marginVertical: verticalScale(10),
     marginHorizontal: moderateScale(20),
   },
   categaryText: {

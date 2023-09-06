@@ -61,7 +61,7 @@ export default Header;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor:'grey',
+    backgroundColor:'white',
     paddingHorizontal: moderateScale(22),
     paddingTop: Platform.OS === 'ios' ? moderateScale(10) : moderateScale(10),
   },
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     fontFamily: Fontfamily.Avenier,
   },
   centerTitle: {
-    // color: 'white',
+    color: 'black',
     fontSize: size.lg,
     fontWeight: '500',
     fontFamily: Fontfamily.Avenier,

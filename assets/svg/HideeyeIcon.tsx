@@ -2,7 +2,6 @@ import React from 'react';
 import {Defs, G, Path, Rect, Svg} from 'react-native-svg';
 
 const HideeyeIcon = () => {
-  // 'https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png',
 
   return (
     <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">

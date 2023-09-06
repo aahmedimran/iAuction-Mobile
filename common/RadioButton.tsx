@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   radioBox: {
-    backgroundColor: themeColors.black,
+    backgroundColor: 'black',
     alignItems: 'center',
     padding: 9,
     borderRadius: 12,

@@ -1,6 +1,5 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {RightIcon} from '../assets/svg/RightIcon';
 import {themeColors} from '../theme/colors';
 import {Fontfamily} from '../theme/fontFamily';
 import {size} from '../theme/fontstyle';
@@ -16,7 +15,8 @@ const Checkbox: React.FC<CheckboxProps> = ({title, isChecked}) => {
     <View style={styles.container}>
       <View style={!isChecked ? styles.Checkbox : styles.checked}>
         {isChecked && (
-          <RightIcon color="black" width={10} height={10} strokeWidth={3} />
+          <Text></Text>
+          // <RightIcon color="black" width={10} height={10} strokeWidth={3} />
         )}
       </View>
       <Text style={styles.title}>{title}</Text>

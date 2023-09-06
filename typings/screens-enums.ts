@@ -1,8 +1,10 @@
 export enum SCREENS {
     AUCTION = 'AUCTION',
-    NOTIFICATION = 'NOTIFICATION',
+    MYHUB = "MYHUB",
     SAVE = 'SAVE',
+    BIDDIES = "BIDDIES",
     PROFILE = 'PROFILE',
-    Biomatric='Biomatric'
+    BIOMATRIC = 'BIOMATRIC',
+    NOTIFICATION = 'NOTIFICATION',
 
 }
