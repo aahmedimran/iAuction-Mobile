@@ -5,15 +5,15 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { themeColors } from '../theme/colors';
 import { SCREENS } from '../typings/screens-enums';
 import Auction from '../screen/Auction';
-import Notification from '../screen/Notification';
 import Save from '../screen/Save';
-import Profile from '../screen/Profile';
 import { Homeicon } from '../assets/svg';
 import Gellary from '../assets/svg/Gellary';
 import Favrouite from '../assets/svg/Favrouite';
 import Avataricon from '../assets/svg/Avataricon';
 import { size } from '../theme/fontstyle';
 import { Fontfamily } from '../theme/fontFamily';
+import Biddies from '../screen/Biddies';
+import Myhub from '../screen/Myhub';
 
 const Tab = createBottomTabNavigator();
 
@@ -47,8 +47,8 @@ const screens = [
     label: '',
   },
   {
-    name: SCREENS.NOTIFICATION,
-    component: Notification,
+    name: SCREENS.MYHUB,
+    component: Myhub,
     headerShown: false,
     label: '',
   },
@@ -59,12 +59,11 @@ const screens = [
     label: '',
   },
   {
-    name: SCREENS.PROFILE,
-    component: Profile,
+    name: SCREENS.BIDDIES,
+    component: Biddies,
     headerShown: false,
     label: '',
   },
-
 ];
 
 const BottomTabs = () => {
@@ -73,7 +72,7 @@ const BottomTabs = () => {
   useEffect(() => {
     setTimeout(() => {
       setShow(true);
-    }, 5000);
+    }, 3000);
   }, []);
 
   return (
@@ -83,6 +82,7 @@ const BottomTabs = () => {
         tabBarInactiveTintColor: '#FFFFFF',
         tabBarActiveTintColor: '#16E6EF',
         tabBarHideOnKeyboard: true,
+
         // tabBarBackground: () => {
         //   return (
         //     Platform.OS === 'ios' && (
@@ -114,14 +114,15 @@ const BottomTabs = () => {
               tabBarLabel: label,
               tabBarStyle: {
                 display: [
-                  SCREENS.Biomatric
+                  SCREENS.PROFILE,
+                  SCREENS.BIOMATRIC
                 ].includes(getFocusedRouteNameFromRoute(route) as any)
                   ? 'none'
                   : show
                     // || isLoggedIn
                     ? 'flex'
                     : 'none',
-                backgroundColor: 'black',
+                // backgroundColor: 'white',
                 height: 70,
                 paddingBottom: Platform.OS === 'ios' ? 5 : 0,
                 position: 'absolute',
@@ -138,7 +139,7 @@ const BottomTabs = () => {
                       focused={focused}
                       title="Home"
                       children={
-                        <Homeicon color={focused ? themeColors.aquaColor : 'white'}
+                        <Homeicon color={focused ? themeColors.aquaColor : 'black'}
                           opacity={focused ? 1 : 0.5} />
                         // <Gellary
                         // color={themeColors.aquaColor}
@@ -148,14 +149,14 @@ const BottomTabs = () => {
                     />
                   );
                 }
-                if (name.includes(SCREENS.NOTIFICATION)) {
+                if (name.includes(SCREENS.MYHUB)) {
                   return (
                     <BottomIcon
                       focused={focused}
                       title="My Hub"
                       children={
                         <Gellary
-                          color={focused ? themeColors.aquaColor : 'white'}
+                          color={focused ? themeColors.aquaColor : 'black'}
                           opacity={focused ? 1 : 0.5}
                         />
                       }
@@ -169,22 +170,22 @@ const BottomTabs = () => {
                       title="Favroiute"
                       children={
                         <Favrouite
-                        // color={color}
-                        // opacity={focused ? 1 : 0.5}
+                          color={focused ? themeColors.aquaColor : 'black'}
+                          opacity={focused ? 1 : 0.5}
                         />
                       }
                     />
                   );
                 }
-                if (name.includes(SCREENS.PROFILE)) {
+                if (name.includes(SCREENS.BIDDIES)) {
                   return (
                     <BottomIcon
                       focused={focused}
-                      title="PROFILE"
+                      title="BIDDIES"
                       children={
                         <Avataricon
-                        color={focused ? themeColors.aquaColor : 'white'}
-                        
+                          color={focused ? themeColors.aquaColor : 'black'}
+
                         // opacity={focused ? 1 : 0.5}
                         />
                       }
