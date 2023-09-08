@@ -1,9 +1,8 @@
-
 import { combineReducers } from "@reduxjs/toolkit";
-import { counterSlice } from "./slicer/Auth";
+import { CreateUserProfileData } from "./slicer/Auth";
 
 
 const rootReducers = combineReducers({
-    todo: counterSlice.reducer,
+    user: CreateUserProfileData,
 });
 export default rootReducers;
