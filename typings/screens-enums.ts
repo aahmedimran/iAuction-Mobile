@@ -6,5 +6,5 @@ export enum SCREENS {
     PROFILE = 'PROFILE',
     BIOMATRIC = 'BIOMATRIC',
     NOTIFICATION = 'NOTIFICATION',
-
+    AUTH = "AUTH"
 }

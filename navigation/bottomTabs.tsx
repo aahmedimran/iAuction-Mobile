@@ -14,6 +14,7 @@ import { size } from '../theme/fontstyle';
 import { Fontfamily } from '../theme/fontFamily';
 import Biddies from '../screen/Biddies';
 import Myhub from '../screen/Myhub';
+import Auth from '../screen/Auth';
 
 const Tab = createBottomTabNavigator();
 
@@ -61,6 +62,12 @@ const screens = [
   {
     name: SCREENS.BIDDIES,
     component: Biddies,
+    headerShown: false,
+    label: '',
+  },
+  {
+    name: SCREENS.AUTH,
+    component: Auth,
     headerShown: false,
     label: '',
   },
@@ -114,8 +121,13 @@ const BottomTabs = () => {
               tabBarLabel: label,
               tabBarStyle: {
                 display: [
+                  SCREENS.AUCTION,
+                  SCREENS.MYHUB,
+                  SCREENS.SAVE,
+                  SCREENS.BIDDIES,
                   SCREENS.PROFILE,
-                  SCREENS.BIOMATRIC
+                  SCREENS.BIOMATRIC,
+                  SCREENS.AUTH
                 ].includes(getFocusedRouteNameFromRoute(route) as any)
                   ? 'none'
                   : show

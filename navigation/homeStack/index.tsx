@@ -4,6 +4,7 @@ import { SCREENS } from '../../typings/screens-enums';
 import Auction from '../../screen/Auction';
 import Profile from '../../screen/Profile';
 import Biomatric from '../../components/Biomatric';
+import Auth from '../../screen/Auth';
 
 
 const Stack = createNativeStackNavigator();
@@ -21,13 +22,13 @@ const HomeStack = () => {
             headerShown: false,
         },
         {
-            name: SCREENS.PROFILE,
-            component: Profile,
+            name: SCREENS.BIOMATRIC,
+            component: Biomatric,
             headerShown: false,
         },
         {
-            name: SCREENS.BIOMATRIC,
-            component: Biomatric,
+            name: SCREENS.AUTH,
+            component: Auth,
             headerShown: false,
         },
 
