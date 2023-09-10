@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
-import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { themeColors } from '../theme/colors';
-import { SCREENS } from '../typings/screens-enums';
+import React, {useEffect, useState} from 'react';
+import {Platform, StyleSheet, Text, View} from 'react-native';
+import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {themeColors} from '../theme/colors';
+import {SCREENS} from '../typings/screens-enums';
 import Auction from '../screen/Auction';
 import Save from '../screen/Save';
-import { Homeicon } from '../assets/svg';
+import {Homeicon} from '../assets/svg';
 import Gellary from '../assets/svg/Gellary';
 import Favrouite from '../assets/svg/Favrouite';
 import Avataricon from '../assets/svg/Avataricon';
-import { size } from '../theme/fontstyle';
-import { Fontfamily } from '../theme/fontFamily';
+
 import Biddies from '../screen/Biddies';
 import Myhub from '../screen/Myhub';
+import Auth from '../screen/Auth';
+import {size} from '../theme/fontstyle';
+import {Fontfamily} from '../theme/fontFamily';
+import AUCTIONSTACK from './homeStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -23,7 +26,7 @@ type BottomIconProps = {
   title: string;
 };
 
-const BottomIcon: React.FC<BottomIconProps> = ({ focused, children, title }) => {
+const BottomIcon: React.FC<BottomIconProps> = ({focused, children, title}) => {
   return (
     <View style={styles.container}>
       {children}
@@ -41,8 +44,8 @@ const BottomIcon: React.FC<BottomIconProps> = ({ focused, children, title }) => 
 };
 const screens = [
   {
-    name: SCREENS.AUCTION,
-    component: Auction,
+    name: SCREENS.AUCTIONSTACK,
+    component: AUCTIONSTACK,
     headerShown: false,
     label: '',
   },
@@ -72,12 +75,12 @@ const BottomTabs = () => {
   useEffect(() => {
     setTimeout(() => {
       setShow(true);
-    }, 3000);
+    }, 50);
   }, []);
 
   return (
     <Tab.Navigator
-      initialRouteName={SCREENS.AUCTION}
+      initialRouteName={SCREENS.AUCTIONSTACK}
       screenOptions={{
         tabBarInactiveTintColor: '#FFFFFF',
         tabBarActiveTintColor: '#16E6EF',
@@ -103,25 +106,30 @@ const BottomTabs = () => {
         //   );
         // },
       }}>
-      {screens.map(({ name, component, headerShown, label }, index) => {
+      {screens.map(({name, component, headerShown, label}, index) => {
         return (
           <Tab.Screen
             key={`bottom-tabs-${index}`}
             name={name}
             component={component}
-            options={({ route }) => ({
+            options={({route}) => ({
               headerShown,
               tabBarLabel: label,
               tabBarStyle: {
                 display: [
+                  SCREENS.AUCTIONSTACK,
+                  SCREENS.MYHUB,
+                  SCREENS.SAVE,
+                  SCREENS.BIDDIES,
                   SCREENS.PROFILE,
-                  SCREENS.BIOMATRIC
+                  SCREENS.BIOMATRIC,
+                  SCREENS.AUTH,
                 ].includes(getFocusedRouteNameFromRoute(route) as any)
                   ? 'none'
                   : show
-                    // || isLoggedIn
-                    ? 'flex'
-                    : 'none',
+                  ? // || isLoggedIn
+                    'flex'
+                  : 'none',
                 // backgroundColor: 'white',
                 height: 70,
                 paddingBottom: Platform.OS === 'ios' ? 5 : 0,
@@ -132,15 +140,17 @@ const BottomTabs = () => {
                 alignItems: 'center',
                 justifyContent: 'center',
               },
-              tabBarIcon: ({ color, focused }) => {
-                if (name.includes(SCREENS.AUCTION)) {
+              tabBarIcon: ({color, focused}) => {
+                if (name.includes(SCREENS.AUCTIONSTACK)) {
                   return (
                     <BottomIcon
                       focused={focused}
                       title="Home"
                       children={
-                        <Homeicon color={focused ? themeColors.aquaColor : 'black'}
-                          opacity={focused ? 1 : 0.5} />
+                        <Homeicon
+                          color={focused ? themeColors.aquaColor : 'black'}
+                          opacity={focused ? 1 : 0.5}
+                        />
                         // <Gellary
                         // color={themeColors.aquaColor}
                         // opacity={focused ? 1 : 0.5}
@@ -186,7 +196,7 @@ const BottomTabs = () => {
                         <Avataricon
                           color={focused ? themeColors.aquaColor : 'black'}
 
-                        // opacity={focused ? 1 : 0.5}
+                          // opacity={focused ? 1 : 0.5}
                         />
                       }
                     />

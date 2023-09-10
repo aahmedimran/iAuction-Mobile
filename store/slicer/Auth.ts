@@ -58,4 +58,4 @@ const getUserProfileSlicer = createSlice({
 
 
 
-export const CreateUserProfileData = getUserProfile.reducer
+export const CreateUserProfileData = getUserProfileSlicer.reducer

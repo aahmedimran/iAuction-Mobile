@@ -1,4 +1,5 @@
 export enum SCREENS {
+    AUCTIONSTACK = 'AUCTIONSTACK',
     AUCTION = 'AUCTION',
     MYHUB = "MYHUB",
     SAVE = 'SAVE',
@@ -6,5 +7,5 @@ export enum SCREENS {
     PROFILE = 'PROFILE',
     BIOMATRIC = 'BIOMATRIC',
     NOTIFICATION = 'NOTIFICATION',
-
+    AUTH = "AUTH"
 }

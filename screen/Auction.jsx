@@ -51,7 +51,7 @@ const Auction = () => {
         rightChildren={
 
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Pressable onPress={() => navigate(SCREENS.AUCTION)}>
+            <Pressable onPress={() => navigate(SCREENS.AUTH)}>
               <SearchIcon />
 
             </Pressable>
