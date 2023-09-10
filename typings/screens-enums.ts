@@ -1,4 +1,5 @@
 export enum SCREENS {
+    AUCTIONSTACK = 'AUCTIONSTACK',
     AUCTION = 'AUCTION',
     MYHUB = "MYHUB",
     SAVE = 'SAVE',

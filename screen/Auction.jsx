@@ -41,7 +41,7 @@ const Auction = () => {
         title={false}
         centerTitle='Auctions'
         leftChildren={
-          <Pressable onPress={() => navigate(SCREENS.AUTH)}>
+          <Pressable onPress={() => navigate(SCREENS.PROFILE)}>
             <Image
               style={{ width: 30, height: 30 }}
               source={{ uri: 'https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png' }}
