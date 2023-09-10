@@ -14,25 +14,21 @@ import {
 import {Fontfamily} from '../theme/fontFamily';
 import {themeColors} from '../theme/colors';
 import { size } from '../theme/fontstyle';
-import Button from '../common/Button';
 
-type LoginProps = {
-  setAlreadyUser?: Dispatch<SetStateAction<boolean>>;
-};
+type SignupProps = {
+  setAlreadyUser?: Dispatch<SetStateAction<boolean>>,
+}
 
-const Login: React.FC<LoginProps> = ({setAlreadyUser}) => {
+const Login:React.FC<SignupProps>=({}) => {
   return (
-    <View style={styles.container}>
+    <View style={{marginVertical:verticalScale(40)}}>
       <View style={styles.textContainer}>
-        <Text>Login</Text>
+        <Text style={styles.text}>Login</Text>
       </View>
-      <View>
+      <View >
         <TextInput
           placeholder="Enter email"
           editable
-          // multiline
-          // numberOfLines={4}
-          // maxLength={40}
           // onChangeText={text => onChangeText(text)}
           // value={value}
           style={styles.TextInput}
@@ -40,15 +36,11 @@ const Login: React.FC<LoginProps> = ({setAlreadyUser}) => {
         <TextInput
           placeholder="Password"
           editable
-          // multiline
-          // numberOfLines={4}
-          // maxLength={40}
           // onChangeText={text => onChangeText(text)}
           // value={value}
-          style={styles.TextInput}
+          style={[styles.TextInput,{marginTop:verticalScale(20),marginBottom:verticalScale(-20)}]}
         />
       </View>
-      <Button title ='Login' containerStyle={styles.containerStyle}/>
     
     </View>
   );
@@ -65,15 +57,20 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     alignItems: 'center',
-    marginVertical: verticalScale(20),
+    marginVertical: verticalScale(10),
+  },
+  text:{
+    fontSize:size.xlg,
+    fontWeight:"bold",
+    fontFamily:Fontfamily.Avenier,
+    letterSpacing:4
   },
   TextInput: {
     padding: 10,
     borderBottomWidth: 2,
-    marginHorizontal: moderateScale(20),
+    marginHorizontal: moderateScale(25),
+    // marginVertical: moderateScale(5),
+
     color: themeColors.aquaColor,
   },
-  containerStyle:{
-    marginTop:40
-  }
 });
