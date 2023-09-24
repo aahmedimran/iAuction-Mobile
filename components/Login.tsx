@@ -1,47 +1,87 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
-import React, {Dispatch, SetStateAction} from 'react';
+import {StyleSheet, Text, View, TextInput, Pressable, TouchableOpacity} from 'react-native';
+import React, {Dispatch, SetStateAction, useState} from 'react';
 import {
   moderateScale,
   moderateVerticalScale,
   verticalScale,
 } from 'react-native-size-matters';
 import {Fontfamily} from '../theme/fontFamily';
-import {themeColors} from '../theme/colors';
-import { size } from '../theme/fontstyle';
+import {size} from '../theme/fontstyle';
+import {UserLoginValue} from '../typings/UserauthTypes';
+import EyeIcon from '../assets/svg/EyeIcon';
+import HideeyeIcon from '../assets/svg/HideeyeIcon';
 
-type SignupProps = {
-  setAlreadyUser?: Dispatch<SetStateAction<boolean>>,
-}
+type LoginProps = {
+  setUserLoginValue: Dispatch<SetStateAction<UserLoginValue>>;
+  userLoginValue?: UserLoginValue;
+  isEditable: boolean;
+  valueError: any;
+};
 
-const Login:React.FC<SignupProps>=({}) => {
+const Login: React.FC<LoginProps> = ({
+  userLoginValue,
+  setUserLoginValue,
+  isEditable,
+  valueError,
+}) => {
+  const [isVisable, setIsVisable] = useState<boolean>(true);
+
   return (
-    <View style={{marginVertical:verticalScale(40)}}>
+    <View
+      style={{
+        marginVertical: verticalScale(30),
+        marginHorizontal: moderateScale(25),
+      }}>
       <View style={styles.textContainer}>
         <Text style={styles.text}>Login</Text>
       </View>
-      <View >
+      <View>
         <TextInput
           placeholder="Enter email"
-          editable
-          // onChangeText={text => onChangeText(text)}
-          // value={value}
-          style={styles.TextInput}
+          editable={isEditable}
+          onChangeText={text =>
+            setUserLoginValue((prev: any) => ({
+              ...prev,
+              email: text,
+            }))
+          }
+          value={userLoginValue?.email}
+          style={[
+            styles.TextInput,
+            {backgroundColor: !isEditable ? '#d1d1d1' : 'white'},
+          ]}
         />
-        <TextInput
-          placeholder="Password"
-          editable
-          // onChangeText={text => onChangeText(text)}
-          // value={value}
-          style={[styles.TextInput,{marginTop:verticalScale(20),marginBottom:verticalScale(-20)}]}
-        />
+        {valueError.email && (
+          <Text style={styles.errorText}>{valueError.email}</Text>
+        )}
+        <View >
+          <TextInput
+            placeholder="Password"
+            editable={isEditable}
+            secureTextEntry={isVisable}
+            onChangeText={text =>
+              setUserLoginValue((prev: any) => ({
+                ...prev,
+                password: text,
+              }))
+            }
+            value={userLoginValue?.password}
+            style={[
+              styles.TextInput,
+              {
+                backgroundColor: !isEditable ? '#d1d1d1' : 'white',
+              },
+            ]}
+          />
+          <Pressable style={{position:"absolute",right:moderateScale(10),top:verticalScale(15)}} onPress={()=>setIsVisable(!isVisable)}>
+           {isVisable ? <EyeIcon /> : <HideeyeIcon />}
+          </Pressable>
+        </View>
+
+        {valueError.password && (
+          <Text style={styles.errorText}>{valueError.password}</Text>
+        )}
       </View>
-    
     </View>
   );
 };
@@ -59,18 +99,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: verticalScale(10),
   },
-  text:{
-    fontSize:size.xlg,
-    fontWeight:"bold",
-    fontFamily:Fontfamily.Avenier,
-    letterSpacing:4
+  text: {
+    fontSize: size.xlg,
+    fontWeight: 'bold',
+    fontFamily: Fontfamily.Avenier,
+    letterSpacing: 4,
   },
   TextInput: {
     padding: 10,
-    borderBottomWidth: 2,
-    marginHorizontal: moderateScale(25),
-    // marginVertical: moderateScale(5),
-
-    color: themeColors.aquaColor,
+    borderBottomWidth: verticalScale(2),
+  },
+  errorText: {
+    marginTop: verticalScale(4),
+    color: 'red',
+    fontSize: size.default,
+    fontFamily: Fontfamily.Avenier,
   },
 });

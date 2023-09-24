@@ -1,72 +1,119 @@
-import { StyleSheet, Text, TextInput, View } from 'react-native'
-import React, { Dispatch, SetStateAction } from 'react'
-import { size } from '../theme/fontstyle';
-import { moderateScale, verticalScale } from 'react-native-size-matters';
-import { Fontfamily } from '../theme/fontFamily';
-import { themeColors } from '../theme/colors';
-import { UserSignUpValue } from '../typings/UserauthTypes';
+import {Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
+import React, {Dispatch, SetStateAction, useState} from 'react';
+import {size} from '../theme/fontstyle';
+import {moderateScale, verticalScale} from 'react-native-size-matters';
+import {Fontfamily} from '../theme/fontFamily';
+import {UserSignUpValue} from '../typings/UserauthTypes';
+import EyeIcon from '../assets/svg/EyeIcon';
+import HideeyeIcon from '../assets/svg/HideeyeIcon';
 
 type SignupProps = {
-  setuserSignUpValue: Dispatch<SetStateAction<UserSignUpValue>>
+  setuserSignUpValue: Dispatch<SetStateAction<UserSignUpValue>>;
   userSignUpValue?: UserSignUpValue;
-}
-const Signup: React.FC<SignupProps> = ({ setuserSignUpValue, userSignUpValue }) => {
+  valueError?: UserSignUpValue;
+  isEditable?: boolean;
+};
+const Signup: React.FC<SignupProps> = ({
+  setuserSignUpValue,
+  userSignUpValue,
+  valueError,
+  isEditable,
+}) => {
+  const [isVisable, setIsVisable] = useState<boolean>(true);
+
   return (
-    <View style={{ marginVertical: verticalScale(40) }}>
+    <View
+      style={{
+        marginVertical: verticalScale(20),
+        marginHorizontal: moderateScale(25),
+      }}>
       <View style={styles.textContainer}>
         <Text style={styles.text}>SignUp</Text>
       </View>
-      <View >
-
+      <View>
         <TextInput
           placeholder="First Name"
-          editable
-          onChangeText={text =>{
-            setuserSignUpValue((prevUserSignUpValue) => ({
+          editable={isEditable}
+          onChangeText={text => {
+            setuserSignUpValue(prevUserSignUpValue => ({
               ...prevUserSignUpValue,
               firstName: text,
-              }))
-          }
-          }
+            }));
+          }}
           value={userSignUpValue?.firstName || ''}
-          style={styles.TextInput}
+          style={[
+            styles.TextInput,
+            {backgroundColor: !isEditable ? '#d1d1d1' : 'white'},
+          ]}
         />
+        {valueError?.firstName && (
+          <Text style={styles.errorText}>{valueError?.firstName}</Text>
+        )}
         <TextInput
           placeholder="Last Name"
-          editable
-          onChangeText={text => setuserSignUpValue((prevUserSignUpValue: any) => ({
-            ...prevUserSignUpValue,
-            lastName: text,
-          }))}
+          editable={isEditable}
+          onChangeText={text =>
+            setuserSignUpValue((prevUserSignUpValue: any) => ({
+              ...prevUserSignUpValue,
+              lastName: text,
+            }))
+          }
           value={userSignUpValue?.lastName || ''}
-          style={styles.TextInput}
+          style={[
+            styles.TextInput,
+            {backgroundColor: !isEditable ? '#d1d1d1' : 'white'},
+          ]}
         />
+        {valueError?.lastName && (
+          <Text style={styles.errorText}>{valueError?.lastName}</Text>
+        )}
         <TextInput
           placeholder="Email"
-          editable
-          onChangeText={text => setuserSignUpValue((prevUserSignUpValue: any) => ({
-            ...prevUserSignUpValue,
-            email: text,
-          }))}
+          editable={isEditable}
+          onChangeText={text =>
+            setuserSignUpValue((prevUserSignUpValue: any) => ({
+              ...prevUserSignUpValue,
+              email: text,
+            }))
+          }
           value={userSignUpValue?.email}
-          style={styles.TextInput}
+          style={[
+            styles.TextInput,
+            {backgroundColor: !isEditable ? '#d1d1d1' : 'white'},
+          ]}
         />
+        {valueError?.email && (
+          <Text style={styles.errorText}>{valueError?.email}</Text>
+        )}
+        <View >
         <TextInput
           placeholder="Password"
-          editable
-          onChangeText={text => setuserSignUpValue((prevUserSignUpValue: any) => ({
-            ...prevUserSignUpValue,
-            password: text,
-          }))}
+          secureTextEntry={isVisable}
+          editable={isEditable}
+          onChangeText={text =>
+            setuserSignUpValue((prevUserSignUpValue: any) => ({
+              ...prevUserSignUpValue,
+              password: text,
+            }))
+          }
           value={userSignUpValue?.password}
-          style={[styles.TextInput, { marginBottom: verticalScale(-20) }]}
+          style={[
+            styles.TextInput,
+            {backgroundColor: !isEditable ? '#d1d1d1' : 'white'},
+          ]}
         />
+        <Pressable style={{position:"absolute",right:moderateScale(10),top:verticalScale(15)}} onPress={()=>setIsVisable(!isVisable)}>
+           {isVisable ? <EyeIcon /> : <HideeyeIcon />}
+          </Pressable>
+        </View>
+        {valueError?.password && (
+          <Text style={styles.errorText}>{valueError?.password}</Text>
+        )}
       </View>
-
     </View>
   );
-}
-export default Signup
+};
+export default Signup;
 
 const styles = StyleSheet.create({
   container: {
@@ -81,16 +128,18 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: size.xlg,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontFamily: Fontfamily.Avenier,
-    letterSpacing: 4
+    letterSpacing: 4,
   },
   TextInput: {
     padding: 10,
     borderBottomWidth: 2,
-    marginHorizontal: moderateScale(25),
-    // marginVertical: moderateScale(5),
-
-    color: themeColors.aquaColor,
+  },
+  errorText: {
+    marginTop: verticalScale(4),
+    color: 'red',
+    fontSize: size.default,
+    fontFamily: Fontfamily.Avenier,
   },
 });

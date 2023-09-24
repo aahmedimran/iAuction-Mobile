@@ -4,37 +4,46 @@ import { themeColors } from '../theme/colors'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 import { size } from '../theme/fontstyle'
 import { Fontfamily } from '../theme/fontFamily'
+import LiveTimer from '../common/LiveTimer'
 
-const Nft = () => {
-  const cardData = Array(10).fill({
-    Name: 'Metatiger',
-    currantPrice: '$25',
-    timeLeft: '1 d 12 h',
-  });
+
+
+type itemProp = {
+  Auctiondata?:any
+  name?:string;
+  currantPrice?:string;
+  timeLeft?:number;
+}
+
+const Nft:React.FC<itemProp> = ({Auctiondata}) => {
+
+  // console.log(Auctiondata);
+
   return (
     <>
       <View style={{ alignItems: 'center', marginBottom: 220 }}>
         <FlatList
-          data={cardData}
+          data={Auctiondata }
           showsHorizontalScrollIndicator={false}
           renderItem={({ item }) => (
             <View style={styles.cardCaintner}>
               <Image
                 style={styles.tinyLogo}
-                source={require('../assets/images/image.png')}
+                source={{uri:item?.product?.file}}
               />
               <View style={styles.textHeading}>
                 <Text style={styles.productname}>Product name</Text>
-                <Text style={styles.productname}>{item.Name}</Text>
+                <Text style={styles.productname}>{item?.product?.Name}</Text>
               </View>
               <View style={styles.cardDetail}>
                 <View style={styles.cardDetailChild}>
                   <Text style={styles.itemTitle}>Currant Price</Text>
-                  <Text style={styles.currantPrice}>{item.currantPrice}</Text>
+                  <Text style={styles.currantPrice}>{item?.product?.price}</Text>
                 </View>
                 <View>
                   <Text style={styles.itemTitle}>Left Time</Text>
-                  <Text style={styles.timeLeft}>{item.timeLeft}</Text>
+                  <LiveTimer targetTime={item?.product?.auctionEndTime}/>
+                  {/* <Text style={styles.timeLeft}>{item?.product?.auctionEndTime}</Text> */}
                 </View>
               </View>
 
@@ -120,6 +129,7 @@ const styles = StyleSheet.create({
     height: 150,
     borderRadius: 20,
     margin: moderateScale(10),
+    resizeMode:'cover'
   },
   cardCaintner: {
     margin: 20,

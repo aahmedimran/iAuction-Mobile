@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, ActivityIndicator, GestureResponderEvent } from 'react-native'
 import React from 'react'
 import { moderateVerticalScale, verticalScale } from 'react-native-size-matters'
 import { size } from '../theme/fontstyle'
@@ -8,11 +8,13 @@ type ButtonProps = {
     isdisabled?: boolean;
     loading?: boolean;
     containerStyle:any
+    onPress?: (event: GestureResponderEvent) => void;
+      
 }
 
-const Button: React.FC<ButtonProps> = ({ title, isdisabled, loading,containerStyle }) => {
+const Button: React.FC<ButtonProps> = ({ title, isdisabled, loading,containerStyle,onPress }) => {
     return (
-        <TouchableOpacity style={{...styles.container,...containerStyle}} disabled={isdisabled}>
+        <TouchableOpacity onPress={onPress} style={{...styles.container,...containerStyle}} disabled={isdisabled}>
             {loading ?
                 <ActivityIndicator size="small" color="#ffff" />
                 :
