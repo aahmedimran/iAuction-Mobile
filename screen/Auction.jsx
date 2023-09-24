@@ -1,40 +1,59 @@
 import {
   StyleSheet,
   Text,
-  TextInput,
   View,
-  Button,
-  FlatList,
-  Platform,
   ScrollView,
   TouchableOpacity,
   Image,
   Pressable,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { verticalScale, moderateScale } from 'react-native-size-matters';
 import SearchIcon from '../assets/svg/SearchIcon';
 import Layout from '../common/Layout';
 import { Fontfamily } from '../theme/fontFamily';
 import { size } from '../theme/fontstyle';
 import { themeColors } from '../theme/colors';
-import Souvenirs from '../components/Souvenirs';
 import Nft from '../components/Nft';
-import Music from '../components/Music';
-import { Homeicon } from '../assets/svg';
 import Header from '../common/Header';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import CameraIcon from '../assets/svg/CameraIcon';
 import { SCREENS } from '../typings/screens-enums';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAuctionItem } from '../store/slicer/GetAuction';
+import { selectAuctionItemdata } from '../store/selectors/getAuctionselectors';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const Auction = () => {
-  const { navigate } = useNavigation();
-  const [isFocused, setIsFocused] = useState('NFT');
-  let categary = ['NFT', 'Music', 'Souvenirs'];
+  const { navigate, } = useNavigation();
+  const isFocused = useIsFocused();
+  const dispatch = useDispatch()
+  const Auctiondata = useSelector(selectAuctionItemdata)
+  const [isFocusedTab, setIsFocusedTab] = useState('All');
+  let categary = ['All', 'Music', 'Souvenirs'];
   const cardData = Array(10).fill({
     Name: 'Metatiger',
     currantPrice: '$25',
     timeLeft: '1 d 12 h',
   });
+  const getuserId = async () => {
+    console.log("in");
+    try {
+      const getUserId = await AsyncStorage.getItem('userId')
+      console.log("getUserId", getUserId);
+    }
+    catch (e) {
+      console.log(e)
+    }
+  }
+  useEffect(() => {
+    if (Auctiondata.length > 0){
+
+      return
+    }
+    dispatch(getAuctionItem())
+
+  }, [])
+
   return (
     <Layout>
       <Header
@@ -66,11 +85,11 @@ const Auction = () => {
           <ScrollView horizontal style={styles.socialArtitems}>
             {categary?.map((val, index) => {
               return (
-                <TouchableOpacity key={index} onPress={() => setIsFocused(val)}>
+                <TouchableOpacity key={index} onPress={() => setIsFocusedTab(val)}>
                   <Text
                     style={[
                       styles.categaryText,
-                      isFocused === val ? styles.activeTab : null,
+                      isFocusedTab === val ? styles.activeTab : null,
                     ]}>
                     {val}
                   </Text>
@@ -79,9 +98,8 @@ const Auction = () => {
             })}
           </ScrollView>
         </View>
-        {isFocused.includes("NFT") && (<Nft />)}
-        {isFocused.includes("Music") && (<Music />)}
-        {isFocused.includes("Souvenirs") && (<Souvenirs />)}
+        {isFocusedTab.includes("All") && (<Nft Auctiondata={Auctiondata} />)}
+
 
       </View>
     </Layout>
